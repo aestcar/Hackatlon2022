@@ -14,11 +14,15 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyCjW7lxS9eLqiRHLov_Lg1F6N7RcgZTqvk"
+      },
+      "googleMaps": {
+        "apiKey": "AIzaSyCjW7lxS9eLqiRHLov_Lg1F6N7RcgZTqvk"
+      }
     },
     "android": {
       "adaptiveIcon": {
