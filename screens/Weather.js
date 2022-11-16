@@ -2,11 +2,11 @@ import { useState, useEffect, useCallback } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import bad_day from "../images/bad_day.gif";
 import good_day from "../images/good_day.gif";
-import { NavigationContainer } from "@react-navigation/native";
 
-export default function WheatherScreen({ navigation }) {
+export default function Weather({ navigation }) {
   const [data, setData] = useState();
   const [image, setImage] = useState();
+  const [text, setText] = useState();
 
   async function handleData(json) {
     await setData(json);
@@ -45,22 +45,17 @@ export default function WheatherScreen({ navigation }) {
     // big condition
     if (validTemp && validWind && validRain) {
       setImage(good_day);
-    } else setImage(bad_day);
+      setText("¡Día perfecto para moverte!");
+    } else {
+      setImage(bad_day);
+      setText("¡Ten cuidado hoy!");
+    }
   });
 
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={image}></Image>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={navigation.navigate("Map")}
-      >
-        <Text style={{ fontSize: 20, color: "#ffffff", margin: 4 }}>
-          {" "}
-          CONTINUAR{" "}
-        </Text>
-      </TouchableOpacity>
+      <Text style={styles.text}>{text}</Text>
     </View>
   );
 }
@@ -68,11 +63,19 @@ export default function WheatherScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#6D56E9",
+    backgroundColor: "#64ccb6",
   },
   image: {
     width: "100%",
     height: "80%",
+  },
+  text: {
+    fontSize: 40,
+    color: "#FFF",
+    alignSelf: "center",
+    margin: "auto",
+    textAlign: "center",
+    padding: 10,
   },
   button: {
     flex: 1,

@@ -1,11 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Dimensions, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TextInput,
+  Button,
+} from "react-native";
 import MapView, { Geojson, PROVIDER_GOOGLE } from "react-native-maps";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { kml } from "@tmcw/togeojson";
 import { DOMParser } from "xmldom";
-import { NavigationContainer } from "@react-navigation/native";
 
 export default function Map({ navigation }) {
   const [myPlace, setMyPlace] = useState();
@@ -66,7 +72,17 @@ export default function Map({ navigation }) {
           </View>
         )}
       </View>
+
       <StatusBar style="auto" />
+
+      <View style={styles.consultWeatherView}>
+        <Button
+          title="Consultar tiempo"
+          onPress={() => {
+            navigation.navigate("Weather");
+          }}
+        ></Button>
+      </View>
     </View>
   );
 }
@@ -84,5 +100,11 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
     height: (Dimensions.get("window").height / 5) * 4,
+  },
+  consultWeatherView: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    zIndex: 5,
   },
 });
