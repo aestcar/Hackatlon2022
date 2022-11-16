@@ -2,12 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import bad_day from "../images/bad_day.gif";
 import good_day from "../images/good_day.gif";
+import { NavigationContainer } from "@react-navigation/native";
 
-const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
-
-export default function weatherForecast() {
+export default function WheatherScreen({ navigation }) {
   const [data, setData] = useState();
   const [image, setImage] = useState();
 
@@ -36,19 +33,17 @@ export default function weatherForecast() {
   const isAGoodDay = useCallback(() => {
     if (data == undefined) return;
     // Get variables
-    const stateSky = data.stateSky;
     const tempMin = data.temperaturas.min;
     const tempMax = data.temperaturas.max;
     const wind = data.viento;
     const rainProbability = data.lluvia;
 
     // def metrics
-    const validStateSky = ["Despejado", "Nubes altas"].includes(stateSky);
     const validTemp = tempMax < 40 && tempMin > 0;
     const validWind = wind < 40;
-    const validRain = rainProbability < 50;
+    const validRain = rainProbability <= 50;
     // big condition
-    if (validStateSky && validTemp && validWind && validRain) {
+    if (validTemp && validWind && validRain) {
       setImage(good_day);
     } else setImage(bad_day);
   });
@@ -57,7 +52,10 @@ export default function weatherForecast() {
     <View style={styles.container}>
       <Image style={styles.image} source={image}></Image>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={navigation.navigate("Map")}
+      >
         <Text style={{ fontSize: 20, color: "#ffffff", margin: 4 }}>
           {" "}
           CONTINUAR{" "}
