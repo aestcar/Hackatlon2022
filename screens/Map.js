@@ -95,7 +95,7 @@ export default function Map({ navigation }) {
           }}
         ></Button>
         <Button
-          title="Consultar mis reservas"
+          title="Consultar mis rutas"
           onPress={() => {
             cambiarAMisReservas();
             console.log(myReservasOn);
